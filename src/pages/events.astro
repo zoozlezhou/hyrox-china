@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const events = [
+  {
+    city: '上海',
+    date: '2026-10-18',
+    venue: '国家会展中心',
+    status: '报名中',
+    slots: '剩余 200 名额',
+  },
+  {
+    city: '北京',
+    date: '2026-11-08',
+    venue: '中国国际展览中心',
+    status: '即将开放',
+    slots: '',
+  },
+  {
+    city: '深圳',
+    date: '2026-12-06',
+    venue: '深圳会展中心',
+    status: '即将开放',
+    slots: '',
+  },
+  {
+    city: '成都',
+    date: '2027-01-10',
+    venue: '世纪城新会展中心',
+    status: '规划中',
+    slots: '',
+  },
+];
+
+const globalEvents = [
+  { city: 'London', date: '2026-09-27', country: 'UK' },
+  { city: 'New York', date: '2026-10-04', country: 'USA' },
+  { city: 'Singapore', date: '2026-10-11', country: 'SG' },
+  { city: 'Sydney', date: '2026-10-25', country: 'AUS' },
+  { city: 'Tokyo', date: '2026-11-15', country: 'JP' },
+];
+---
+
+<Layout title="赛事日历 - Hyrox 中国">
+  <!-- Hero -->
+  <section class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl font-bold mb-4">赛事日历</h1>
+      <p class="text-blue-100 text-lg">全球统一赛制，标准化体验</p>
+    </div>
+  </section>
+
+  <!-- China Events -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-8 flex items-center">
+        <span class="text-3xl mr-3">🇨🇳</span> 中国赛事
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        {events.map(event => (
+          <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 border border-gray-100">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="text-2xl font-bold text-gray-900">{event.city}</h3>
+                <p class="text-gray-500 mt-1">{event.venue}</p>
+              </div>
+              <span class={`px-3 py-1 rounded-full text-sm font-medium ${
+                event.status === '报名中' ? 'bg-green-100 text-green-700' :
+                event.status === '即将开放' ? 'bg-yellow-100 text-yellow-700' :
+                'bg-gray-100 text-gray-500'
+              }`}>
+                {event.status}
+              </span>
+            </div>
+            <div class="flex items-center text-gray-600 mb-4">
+              <span class="mr-2">📅</span>
+              <span class="font-medium">{event.date}</span>
+              {event.slots && <span class="ml-4 text-sm text-green-600">{event.slots}</span>}
+            </div>
+            <div class="flex gap-3">
+              {event.status === '报名中' ? (
+                <a href="https://hyrox.com" target="_blank" class="flex-1 bg-blue-600 text-white text-center py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                  立即报名
+                </a>
+              ) : (
+                <button class="flex-1 bg-gray-100 text-gray-500 text-center py-2 rounded-lg font-medium cursor-not-allowed">
+                  敬请期待
+                </button>
+              )}
+              <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition">
+                详情
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Events -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-8 flex items-center">
+        <span class="text-3xl mr-3">🌍</span> 近期全球赛事
+      </h2>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">城市</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">国家</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">日期</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">操作</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {globalEvents.map(e => (
+              <tr class="hover:bg-blue-50 transition">
+                <td class="px-6 py-4 font-medium">{e.city}</td>
+                <td class="px-6 py-4 text-gray-500">{e.country}</td>
+                <td class="px-6 py-4 text-gray-500">{e.date}</td>
+                <td class="px-6 py-4 text-right">
+                  <a href="https://hyrox.com" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    查看详情 →
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Layout>
